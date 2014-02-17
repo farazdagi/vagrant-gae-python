@@ -1,0 +1,11 @@
+---
+# This playbook contains GAE Python SDK plays that will be run on all nodes.
+
+- name: download Python SDK
+  command: /usr/bin/wget -N {{ gae_sdk_url }} creates={{ gae_base_dir }}{{ gae_sdk_filename }} chdir={{ gae_base_dir }}
+
+- name: unpack and install SDK archive
+  command: /usr/bin/unzip -q -o {{ gae_sdk_filename }} creates={{ gae_base_dir }}{{ gae_dirname }} chdir={{ gae_base_dir }}
+
+- name: add {{ gae_base_dir }}{{ gae_dirname }} to PATH
+  lineinfile: dest=/etc/environment state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{ gae_base_dir }}{{ gae_dirname }}).*?)(["]*)$' line="PATH=\1\2:{{ gae_base_dir }}{{ gae_dirname }}\3"

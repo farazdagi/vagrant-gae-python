@@ -1,0 +1,11 @@
+---
+# Main deployment playbook. Deploys whole stack of servers.
+
+- name: setup and deploy all nodes
+  hosts: all
+  sudo: yes
+  user: vagrant
+  roles:
+    - common
+    - gae
+
