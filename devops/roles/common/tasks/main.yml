@@ -28,5 +28,3 @@
     - pil
     - yolk
 
-- name: update /etc/hosts
-  lineinfile: dest=/etc/hosts regexp='.*{{ server_hostname }}$' line='{{ server_ip }} {{ server_hostname }}' state=present
